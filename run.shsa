@@ -1,0 +1,8 @@
+
+#!/bin/bash
+cd /Users/lakshita/Desktop/JobTracker
+export SMTP_USER="lakshitabhatnagar29@gmail.com"
+export SMTP_PASSWORD="xnsimgfxwpdjshly"
+export EMAIL_TO="lakshitabhatnagar29@gmail.com"
+./venv/bin/python main.py >> reports/log.txt 2>&1
+

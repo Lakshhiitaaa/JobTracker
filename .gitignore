@@ -1,0 +1,29 @@
+# Virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Secrets - NEVER commit these
+run.bat
+run.sh
+.env
+*.env
+
+# Logs
+reports/log.txt
+*.log
+
+# Local Excel lock files
+~$*.xlsx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uncomment the next line if you are NOT deploying via GitHub Actions.
+# GitHub Actions needs jobs.db committed back to preserve deduplication.
+# jobs.db
