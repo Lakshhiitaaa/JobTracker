@@ -1,7 +1,8 @@
 name: Daily Job Tracker
 on:
   schedule:
-    - cron: "30 2 * * 1-5"   # 08:00 IST, Mon-Fri
+    - cron: "30 3 * * *"
+    - cron: "0 11 * * *"
   workflow_dispatch:
 jobs:
   track:
