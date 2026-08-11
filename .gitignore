@@ -28,3 +28,4 @@ Thumbs.db
 # GitHub Actions needs jobs.db committed back to preserve deduplication.
 # jobs.db
 jobs.db
+jobs.db
