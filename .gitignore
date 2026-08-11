@@ -27,3 +27,4 @@ Thumbs.db
 # Uncomment the next line if you are NOT deploying via GitHub Actions.
 # GitHub Actions needs jobs.db committed back to preserve deduplication.
 # jobs.db
+jobs.db
