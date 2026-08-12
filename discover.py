@@ -37,12 +37,32 @@ def verify(ats_name, token):
         return False, 0, f"{type(e).__name__}: {str(e)[:80]}"
 
 
+GENERIC_SUBDOMAINS = {
+    "jobs", "careers", "career", "apply", "www", "join", "talent",
+    "work", "hiring", "recruiting", "recruitment", "boards", "board",
+}
+
+
 def token_guesses(name_or_url):
-    """Plausible board slugs from a company name or domain."""
+    """Plausible board slugs from a company name or domain.
+
+    Careers pages often live on a subdomain like careers.company.com or
+    jobs.company.com. The first label there is a generic word, not the
+    company name -- using it as an ATS token risks matching some unrelated
+    company (or a generic demo board) that happens to use the same slug.
+    So: only pull a token from the URL's domain when that first label is
+    NOT one of these generic words; otherwise guess from the company name.
+    """
     s = name_or_url.lower()
-    m = re.search(r"https?://(?:www\.)?([a-z0-9-]+)\.", s)
-    if m:
+    m = re.search(r"https?://(?:www\.)?([a-z0-9-]+)\.([a-z0-9.-]+)", s)
+    if m and m.group(1) not in GENERIC_SUBDOMAINS:
         s = m.group(1)
+    elif m:
+        # first label is generic (jobs./careers./...) -- try the next
+        # label instead, e.g. "careers.company.com" -> "company"
+        rest = m.group(2)
+        m2 = re.match(r"([a-z0-9-]+)\.", rest)
+        s = m2.group(1) if m2 else name_or_url.lower()
     s = re.sub(r"\b(technologies|technology|labs|inc|pvt|ltd|limited|india)\b", "", s)
     base = re.sub(r"[^a-z0-9]", "", s)
     hyph = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
